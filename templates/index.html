@@ -1,0 +1,87 @@
+ <!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Weather App</title>
+    <style>
+        /* Use the background image from the static folder */
+        body {
+            font-family: Arial, sans-serif;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            margin: 0;
+            background: url('/static/weather2.jpg');
+            background-size: cover;
+            color: #000000;  /* Black text */
+        }
+
+        /* Styling for the main app container */
+        .weather-app {
+            background-color: rgba(245, 245, 220, 0.5); /* Semi-transparent overlay for readability ( transparent beige */
+            width: 350px;
+            padding: 20px;
+            border-radius: 10px;
+            box-shadow: 0 4px 8px rgba(0, 0, 0, 0.3);
+            text-align: center;
+        }
+
+        .weather-app input[type="text"] {
+            width: 80%;
+            padding: 10px;
+            border-radius: 5px;
+            border: 1px solid #ccc;
+            margin-bottom: 10px;
+            font-size: 1em;
+        }
+
+        .weather-app button {
+            padding: 10px 20px;
+            border: none;
+            border-radius: 5px;
+            background-color: #6A737B;  /* Button colour */
+            color: white;
+            font-size: 1em;
+            cursor: pointer;
+        }
+
+        .weather-data {
+            margin-top: 20px;
+        }
+
+        .weather-data h2 {
+            font-size: 1.5em;
+            margin: 0;
+        }
+
+        .weather-data p {
+            font-size: 1.1em;
+            margin: 5px 0;
+        }
+    </style>
+</head>
+<body>
+    <div class="weather-app">
+        <h1>WeatherHub</h1>
+        <form method="post">
+            <input type="text" name="city" placeholder="Enter city name" required>
+            <button type="submit">Get Weather</button>
+        </form>
+
+        {% if weather_data %}
+            {% if weather_data.error %}
+                <p>{{ weather_data.error }}</p>
+            {% else %}
+                <div class="weather-data">
+                    <h2>{{ weather_data.city }}</h2>
+                    <p>Temperature: {{ weather_data.temperature }}°C</p>
+                    <p>Humidity: {{ weather_data.humidity }}%</p>
+                    <p>Condition: {{ weather_data.condition }}</p>
+                </div>
+            {% endif %}
+        {% endif %}
+    </div>
+</body>
+</html>
